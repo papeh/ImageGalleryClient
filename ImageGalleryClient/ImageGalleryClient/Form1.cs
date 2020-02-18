@@ -1,4 +1,5 @@
-﻿using System;
+using System;
+using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
 
@@ -49,6 +50,16 @@ namespace ImageGalleryClient
 				this._noCollectionsMessage.Visible = true;
 			}
 
+
+		}
+
+		private void _fixSizingTimer_Tick(object sender, EventArgs e)
+		{
+			this._fixSizingTimer.Enabled = false;
+			// for some reason, the _messageLabel that says "In the box above, type what..."
+			// is cut off initially... something is going wrong with the sizing. If we
+			// cause it to recalculate things after a short delay, all is well
+			this.Size = new Size(this.Size.Width - 1, this.Size.Height);
 		}
 	}
 }

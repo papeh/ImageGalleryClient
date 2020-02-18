@@ -34,6 +34,7 @@
 			this._imageGalleryControl = new SIL.Windows.Forms.ImageToolbox.ImageGallery.ImageGalleryControl();
 			this._checkForCollectionsTimer = new System.Windows.Forms.Timer(this.components);
 			this._noCollectionsMessage = new SIL.Windows.Forms.Widgets.BetterLabel();
+			this._fixSizingTimer = new System.Windows.Forms.Timer(this.components);
 			this.SuspendLayout();
 			// 
 			// saveButton
@@ -76,7 +77,7 @@
 			this._checkForCollectionsTimer.Interval = 1000;
 			this._checkForCollectionsTimer.Tick += new System.EventHandler(this._checkForCollectionsTimer_Tick);
 			// 
-			// betterLabel1
+			// _noCollectionsMessage
 			// 
 			this._noCollectionsMessage.BorderStyle = System.Windows.Forms.BorderStyle.None;
 			this._noCollectionsMessage.Enabled = false;
@@ -93,6 +94,11 @@
 			this._noCollectionsMessage.Text = "Please install one or more Bloom-compatible image collections on this computer fi" +
     "rst, for example https://bloomlibrary.org/artofreading.";
 			this._noCollectionsMessage.Visible = false;
+			// 
+			// _fixSizingTimer
+			// 
+			this._fixSizingTimer.Enabled = true;
+			this._fixSizingTimer.Tick += new System.EventHandler(this._fixSizingTimer_Tick);
 			// 
 			// Form1
 			// 
@@ -117,6 +123,7 @@
 		private SIL.Windows.Forms.ImageToolbox.ImageGallery.ImageGalleryControl _imageGalleryControl;
 		private System.Windows.Forms.Timer _checkForCollectionsTimer;
 		private SIL.Windows.Forms.Widgets.BetterLabel _noCollectionsMessage;
+		private System.Windows.Forms.Timer _fixSizingTimer;
 	}
 }
 
