@@ -46,7 +46,14 @@ namespace ImageGalleryClient
 
         private void OnClipboardClick(object sender, EventArgs e)
         {
-            Clipboard.SetImage(this._imageGalleryControl.GetImage().Image);
+            if (this._imageGalleryControl.GetImage() == null)
+            {
+                MessageBox.Show("Please choose atleast one image");
+            }
+            else
+            {
+                Clipboard.SetImage(this._imageGalleryControl.GetImage().Image);
+            }
         }
 
         private void _checkForCollectionsTimer_Tick(object sender, EventArgs e)
