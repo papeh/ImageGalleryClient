@@ -5,20 +5,27 @@ VisualStudioVersion = 15.0.28307.168
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImageGalleries", "ImageGalleryClient\ImageGalleries.csproj", "{6FA9A7EB-7FE3-4F50-BD88-8D68F72FADEA}"
 EndProject
-Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "Image Galleries", "..\..\Image Galleries\Image Galleries.vdproj", "{2525DD8F-C22C-489D-86E5-66B3E686E2B1}"
+Project("{840C416C-B8F3-42BC-B0DD-F6BB14C9F8CB}") = "Setup", "Setup\Setup.aiproj", "{3E8B4807-4A57-4CBD-ACCA-FB116283347E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		All|Any CPU = All|Any CPU
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{6FA9A7EB-7FE3-4F50-BD88-8D68F72FADEA}.All|Any CPU.ActiveCfg = Release|Any CPU
+		{6FA9A7EB-7FE3-4F50-BD88-8D68F72FADEA}.All|Any CPU.Build.0 = Release|Any CPU
 		{6FA9A7EB-7FE3-4F50-BD88-8D68F72FADEA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{6FA9A7EB-7FE3-4F50-BD88-8D68F72FADEA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6FA9A7EB-7FE3-4F50-BD88-8D68F72FADEA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6FA9A7EB-7FE3-4F50-BD88-8D68F72FADEA}.Release|Any CPU.Build.0 = Release|Any CPU
-		{2525DD8F-C22C-489D-86E5-66B3E686E2B1}.Debug|Any CPU.ActiveCfg = Debug
-		{2525DD8F-C22C-489D-86E5-66B3E686E2B1}.Release|Any CPU.ActiveCfg = Release
+		{3E8B4807-4A57-4CBD-ACCA-FB116283347E}.All|Any CPU.ActiveCfg = DefaultBuild
+		{3E8B4807-4A57-4CBD-ACCA-FB116283347E}.All|Any CPU.Build.0 = DefaultBuild
+		{3E8B4807-4A57-4CBD-ACCA-FB116283347E}.Debug|Any CPU.ActiveCfg = DefaultBuild
+		{3E8B4807-4A57-4CBD-ACCA-FB116283347E}.Debug|Any CPU.Build.0 = DefaultBuild
+		{3E8B4807-4A57-4CBD-ACCA-FB116283347E}.Release|Any CPU.ActiveCfg = DefaultBuild
+		{3E8B4807-4A57-4CBD-ACCA-FB116283347E}.Release|Any CPU.Build.0 = DefaultBuild
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

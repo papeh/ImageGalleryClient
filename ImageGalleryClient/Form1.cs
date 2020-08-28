@@ -21,7 +21,7 @@ namespace ImageGalleryClient
         {
             if (this._imageGalleryControl.GetImage() == null)
             {
-                MessageBox.Show("Please choose atleast one image");
+                MessageBox.Show("Please choose atleast one image.");
             }
             else
             {
@@ -48,7 +48,7 @@ namespace ImageGalleryClient
         {
             if (this._imageGalleryControl.GetImage() == null)
             {
-                MessageBox.Show("Please choose atleast one image");
+                MessageBox.Show("Please choose atleast one image.");
             }
             else
             {
