@@ -5,7 +5,7 @@ VisualStudioVersion = 15.0.28307.168
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImageGalleries", "ImageGalleryClient\ImageGalleries.csproj", "{6FA9A7EB-7FE3-4F50-BD88-8D68F72FADEA}"
 EndProject
-Project("{840C416C-B8F3-42BC-B0DD-F6BB14C9F8CB}") = "Setup", "Setup\Setup.aiproj", "{3E8B4807-4A57-4CBD-ACCA-FB116283347E}"
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "Setup", "Setup\Setup.vdproj", "{91283FBB-CF30-4045-A7AC-FB6F39243520}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -20,12 +20,9 @@ Global
 		{6FA9A7EB-7FE3-4F50-BD88-8D68F72FADEA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6FA9A7EB-7FE3-4F50-BD88-8D68F72FADEA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6FA9A7EB-7FE3-4F50-BD88-8D68F72FADEA}.Release|Any CPU.Build.0 = Release|Any CPU
-		{3E8B4807-4A57-4CBD-ACCA-FB116283347E}.All|Any CPU.ActiveCfg = DefaultBuild
-		{3E8B4807-4A57-4CBD-ACCA-FB116283347E}.All|Any CPU.Build.0 = DefaultBuild
-		{3E8B4807-4A57-4CBD-ACCA-FB116283347E}.Debug|Any CPU.ActiveCfg = DefaultBuild
-		{3E8B4807-4A57-4CBD-ACCA-FB116283347E}.Debug|Any CPU.Build.0 = DefaultBuild
-		{3E8B4807-4A57-4CBD-ACCA-FB116283347E}.Release|Any CPU.ActiveCfg = DefaultBuild
-		{3E8B4807-4A57-4CBD-ACCA-FB116283347E}.Release|Any CPU.Build.0 = DefaultBuild
+		{91283FBB-CF30-4045-A7AC-FB6F39243520}.All|Any CPU.ActiveCfg = Release
+		{91283FBB-CF30-4045-A7AC-FB6F39243520}.Debug|Any CPU.ActiveCfg = Debug
+		{91283FBB-CF30-4045-A7AC-FB6F39243520}.Release|Any CPU.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
