@@ -41,25 +41,6 @@ namespace ImageGalleryClient
                     }
                 }
             }
-
-		private void OnClipboardClick(object sender, EventArgs e)
-		{
-			Clipboard.SetImage(this._imageGalleryControl.GetImage().Image);
-		}
-
-        private void OnClipboardClick(object sender, EventArgs e)
-        {
-            if (this._imageGalleryControl.GetImage() == null)
-            {
-                MessageBox.Show("Please choose at least one image.");
-            }
-            else
-            {
-                Clipboard.SetImage(this._imageGalleryControl.GetImage().Image);
-            }
-        }
-
-
 		}
 
 		private void _fixSizingTimer_Tick(object sender, EventArgs e)

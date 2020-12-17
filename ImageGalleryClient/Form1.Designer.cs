@@ -1,4 +1,7 @@
-﻿namespace ImageGalleryClient
+﻿using System;
+using System.Windows.Forms;
+
+namespace ImageGalleryClient
 {
 	partial class Form1
 	{
@@ -30,35 +33,13 @@
 		{
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
-            this.saveButton = new System.Windows.Forms.Button();
-            this.clipboardButton = new System.Windows.Forms.Button();
             this._imageGalleryControl = new SIL.Windows.Forms.ImageToolbox.ImageGallery.ImageGalleryControl();
             this._checkForCollectionsTimer = new System.Windows.Forms.Timer(this.components);
             this._noCollectionsMessage = new SIL.Windows.Forms.Widgets.BetterLabel();
             this._fixSizingTimer = new System.Windows.Forms.Timer(this.components);
+            this.clipboardButton = new System.Windows.Forms.Button();
+            this.saveButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
-            // 
-            // saveButton
-            // 
-            this.saveButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.saveButton.Location = new System.Drawing.Point(557, 408);
-            this.saveButton.Name = "saveButton";
-            this.saveButton.Size = new System.Drawing.Size(75, 23);
-            this.saveButton.TabIndex = 0;
-            this.saveButton.Text = "Save...";
-            this.saveButton.UseVisualStyleBackColor = true;
-            this.saveButton.Click += new System.EventHandler(this.OnSaveClick);
-            // 
-            // clipboardButton
-            // 
-            this.clipboardButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.clipboardButton.Location = new System.Drawing.Point(652, 408);
-            this.clipboardButton.Name = "clipboardButton";
-            this.clipboardButton.Size = new System.Drawing.Size(110, 23);
-            this.clipboardButton.TabIndex = 1;
-            this.clipboardButton.Text = "Copy to Clipboard";
-            this.clipboardButton.UseVisualStyleBackColor = true;
-            this.clipboardButton.Click += new System.EventHandler(this.OnClipboardClick);
             // 
             // _imageGalleryControl
             // 
@@ -101,6 +82,35 @@
             this._fixSizingTimer.Enabled = true;
             this._fixSizingTimer.Tick += new System.EventHandler(this._fixSizingTimer_Tick);
             // 
+            // clipboardButton
+            // 
+            this.clipboardButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.clipboardButton.Image = global::ImageGalleryClient.Properties.Resources.baseline_file_copy_black_18dp1;
+            this.clipboardButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.clipboardButton.Location = new System.Drawing.Point(640, 395);
+            this.clipboardButton.Name = "clipboardButton";
+            this.clipboardButton.Size = new System.Drawing.Size(119, 32);
+            this.clipboardButton.TabIndex = 1;
+            this.clipboardButton.Text = "Copy to Clipboard";
+            this.clipboardButton.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.clipboardButton.UseVisualStyleBackColor = true;
+            this.clipboardButton.Click += new System.EventHandler(this.OnClipboardClick);
+            // 
+            // saveButton
+            // 
+            this.saveButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.saveButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.saveButton.Image = global::ImageGalleryClient.Properties.Resources.baseline_save_alt_black_18dp;
+            this.saveButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.saveButton.Location = new System.Drawing.Point(576, 395);
+            this.saveButton.Name = "saveButton";
+            this.saveButton.Size = new System.Drawing.Size(58, 32);
+            this.saveButton.TabIndex = 0;
+            this.saveButton.Text = "    Save";
+            this.saveButton.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.saveButton.UseVisualStyleBackColor = true;
+            this.saveButton.Click += new System.EventHandler(this.OnSaveClick);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -118,9 +128,31 @@
 
 		}
 
-		#endregion
+        private void _checkForCollectionsTimer_Tick(object sender, EventArgs e)
+        {
+            this._checkForCollectionsTimer.Enabled = false;
+            if (!this._imageGalleryControl.HaveImageCollectionOnThisComputer)
+            {
+                this._imageGalleryControl.Visible = false;
+                this._noCollectionsMessage.Visible = true;
+            }
+        }
 
-		private System.Windows.Forms.Button saveButton;
+        private void OnClipboardClick(object sender, EventArgs e)
+        {
+            if (this._imageGalleryControl.GetImage() == null)
+            {
+                MessageBox.Show("Please choose at least one image.");
+            }
+            else
+            {
+                Clipboard.SetImage(this._imageGalleryControl.GetImage().Image);
+            }
+        }
+
+        #endregion
+
+        private System.Windows.Forms.Button saveButton;
 		private System.Windows.Forms.Button clipboardButton;
 		private SIL.Windows.Forms.ImageToolbox.ImageGallery.ImageGalleryControl _imageGalleryControl;
 		private System.Windows.Forms.Timer _checkForCollectionsTimer;

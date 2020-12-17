@@ -187,6 +187,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <None Include="ImageGalleryClient_TemporaryKey.pfx" />
     <None Include="packages.config" />
@@ -209,6 +210,11 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Image-Galleries.ico" />
+    <None Include="Resources\baseline_file_copy_black_18dp1.png" />
+    <None Include="Resources\baseline_file_copy_black_18dp.png" />
+    <None Include="Resources\baseline_save_alt_black_18dp.png" />
+    <None Include="Resources\baseline_file_copy_black_36dp.png" />
+    <None Include="Resources\baseline_save_alt_black_36dp.png" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.7.2">
