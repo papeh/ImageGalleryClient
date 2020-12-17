@@ -117,9 +117,136 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="saveButton.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Right</value>
+  </data>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="saveButton.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABIAAAASCAYAAABWzo5XAAAABGdBTUEAALGPC/xhBQAAAI9JREFUOE9j
+        GJKgH4opBvuhmGIwDA2SgNLIBqlAaaJBORA/B2INIIYZZAPEn4EYJIcXINsMcs11IAYZdhuIHwMxyBCQ
+        GDaXogB0CZhh/6EY2RAQINogEIAZhm4ICJBkEAiADEA3BARINggXwKl+PRC/B2KYAkIYpHY2EGMAEyAG
+        GYZNEza8HIhJTlf0AgwMAJeOO4m+8Jw5AAAAAElFTkSuQmCC
+</value>
+  </data>
+  <data name="saveButton.Location" type="System.Drawing.Point, System.Drawing">
+    <value>552, 404</value>
+  </data>
+  <data name="saveButton.Size" type="System.Drawing.Size, System.Drawing">
+    <value>60, 30</value>
+  </data>
+  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="saveButton.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;saveButton.Name" xml:space="preserve">
+    <value>saveButton</value>
+  </data>
+  <data name="&gt;&gt;saveButton.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;saveButton.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;saveButton.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="clipboardButton.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Right</value>
+  </data>
+  <data name="clipboardButton.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABIAAAASCAYAAABWzo5XAAAABGdBTUEAALGPC/xhBQAAAJVJREFUOE9j
+        QAI8QOxABMYLTID4MxD/JwLjBfVADFKEzQXoGC+AGQQDuLwpAsR4AbJB+Lx5HYglgBgnQDYIxkbH04EY
+        ZBBew4gxCCQOMgCvYcQaBAJ4DSPFIBCAGbYZzEMCxBiEDe8HYhQw+AyKB2KYIEUGIYOhbdBuIMYJnIEY
+        myZsOBmI8QIFIMaW+5GxBhBDAQMDAOQ3oZLZup+YAAAAAElFTkSuQmCC
+</value>
+  </data>
+  <data name="clipboardButton.Location" type="System.Drawing.Point, System.Drawing">
+    <value>629, 404</value>
+  </data>
+  <data name="clipboardButton.Size" type="System.Drawing.Size, System.Drawing">
+    <value>60, 30</value>
+  </data>
+  <data name="clipboardButton.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;clipboardButton.Name" xml:space="preserve">
+    <value>clipboardButton</value>
+  </data>
+  <data name="&gt;&gt;clipboardButton.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;clipboardButton.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;clipboardButton.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="_imageGalleryControl.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Bottom, Left, Right</value>
+  </data>
+  <data name="_imageGalleryControl.Location" type="System.Drawing.Point, System.Drawing">
+    <value>5, 0</value>
+  </data>
+  <data name="_imageGalleryControl.Size" type="System.Drawing.Size, System.Drawing">
+    <value>794, 389</value>
+  </data>
+  <data name="_imageGalleryControl.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;_imageGalleryControl.Name" xml:space="preserve">
+    <value>_imageGalleryControl</value>
+  </data>
+  <data name="&gt;&gt;_imageGalleryControl.Type" xml:space="preserve">
+    <value>SIL.Windows.Forms.ImageToolbox.ImageGallery.ImageGalleryControl, SIL.Windows.Forms, Version=8.0.0.0, Culture=neutral, PublicKeyToken=cab3c8c5232dfcf2</value>
+  </data>
+  <data name="&gt;&gt;_imageGalleryControl.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;_imageGalleryControl.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
   <metadata name="_checkForCollectionsTimer.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
   </metadata>
+  <data name="_noCollectionsMessage.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="_noCollectionsMessage.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 12pt</value>
+  </data>
+  <data name="_noCollectionsMessage.Location" type="System.Drawing.Point, System.Drawing">
+    <value>198, 124</value>
+  </data>
+  <data name="_noCollectionsMessage.Multiline" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="_noCollectionsMessage.Size" type="System.Drawing.Size, System.Drawing">
+    <value>337, 60</value>
+  </data>
+  <data name="_noCollectionsMessage.TabIndex" type="System.Int32, mscorlib">
+    <value>3</value>
+  </data>
+  <data name="_noCollectionsMessage.Text" xml:space="preserve">
+    <value>Please install one or more Bloom-compatible image collections on this computer first, for example https://bloomlibrary.org/artofreading.</value>
+  </data>
+  <data name="_noCollectionsMessage.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="&gt;&gt;_noCollectionsMessage.Name" xml:space="preserve">
+    <value>_noCollectionsMessage</value>
+  </data>
+  <data name="&gt;&gt;_noCollectionsMessage.Type" xml:space="preserve">
+    <value>SIL.Windows.Forms.Widgets.BetterLabel, SIL.Windows.Forms, Version=8.0.0.0, Culture=neutral, PublicKeyToken=cab3c8c5232dfcf2</value>
+  </data>
+  <data name="&gt;&gt;_noCollectionsMessage.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;_noCollectionsMessage.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
   <metadata name="_fixSizingTimer.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>222, 23</value>
   </metadata>
