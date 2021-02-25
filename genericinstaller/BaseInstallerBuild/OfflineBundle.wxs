@@ -1,0 +1,312 @@
+<?xml version="1.0"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi"
+		xmlns:bal="http://schemas.microsoft.com/wix/BalExtension"
+		xmlns:util="http://schemas.microsoft.com/wix/UtilExtension"
+		xmlns:netfx="http://schemas.microsoft.com/wix/NetFxExtension"
+		xmlns:dep="http://schemas.microsoft.com/wix/DependencyExtension">
+	<Bundle
+			Name='$(var.ApplicationName) $(var.TruncatedVersion)'
+			Version='$(var.VersionNumber)'
+			UpgradeCode='$(var.UpgradeCode)'
+			Tag='$(var.SafeApplicationName)Bundle'
+			IconSourceFile='..\resources\Installer.ico'
+			Copyright='Copyright © $(var.Year), $(var.Manufacturer)'
+			Manufacturer='$(var.Manufacturer)'>
+		<bal:Condition Message="XP is no longer supported."> (VersionNT &gt;= v6.0) </bal:Condition>
+		<BootstrapperApplicationRef Id="WixStandardBootstrapperApplication.HyperlinkLicense">
+			<Payload SourceFile="..\resources\License.htm" />
+		</BootstrapperApplicationRef>
+		<!--<RelatedBundle Id='$(var.UpgradeCode)' Action='Detect'/>-->
+		<WixVariable Id="WixStdbaLicenseUrl" Value="License.htm" />
+		<WixVariable Id="WixStdbaLogo" Value="..\resources\bundle_background.bmp" />
+		<WixVariable Id="WixStdbaThemeXml" Value="BundleTheme.xml" />
+		<WixVariable Id="WixStdbaThemeWxl" Value="BundleTheme.wxl" />
+		<Chain>
+			<PackageGroupRef Id="NetFx48Redist" />
+			<PackageGroupRef Id="vcredists" />
+			<RollbackBoundary />
+			<PackageGroupRef Id='AppPackageGroup'/>
+		</Chain>
+	</Bundle>
+	<Fragment Id='AppFragment'>
+		<PackageGroup Id='AppPackageGroup'>
+		<!-- 08-Jan-2021 Commented out the following 9 lines to remove reference to version number in offline installer name; replaced with following <MsiPcakage> element - FBennett
+			<MsiPackage Id='AppMsiPackage'
+					DisplayName='$(var.ApplicationName) $(var.VersionNumber)'
+					DisplayInternalUI='yes'
+					ForcePerMachine='yes'
+					InstallCondition='1'
+					SourceFile='$(var.SafeApplicationName)_$(var.VersionNumber).msi'
+					Visible='yes'
+					Vital='yes'>
+			</MsiPackage>
+		-->
+			<MsiPackage Id='AppMsiPackage'
+					DisplayName='$(var.ApplicationName)'
+					DisplayInternalUI='yes'
+					ForcePerMachine='yes'
+					InstallCondition='1'
+					SourceFile='$(var.SafeApplicationName).msi'
+					Visible='yes'
+					Vital='yes'>
+			</MsiPackage>
+		</PackageGroup>
+	</Fragment>
+	<!-- .NET 4.8 -->
+	<?define NetFx48MinRelease = 528049 ?>
+	<Fragment>
+		<util:RegistrySearch Root="HKLM" Key="SOFTWARE\Microsoft\Net Framework Setup\NDP\v4\Full" Value="Release" Variable="Netfx4FullRelease" />
+		<util:RegistrySearch Root="HKLM" Key="SOFTWARE\Microsoft\Net Framework Setup\NDP\v4\Full" Value="Release" Variable="Netfx4x64FullRelease" Win64="yes" />
+		<WixVariable Id="NetFx48OrLaterDetectCondition" Overridable="yes"
+		  Value="(Netfx4FullRelease &gt;= $(var.NetFx48MinRelease)) AND (NOT VersionNT64 OR (Netfx4x64FullRelease &gt;= $(var.NetFx48MinRelease)))" />
+		<WixVariable Id="NetFx48RedistInstallCondition" Value="" Overridable="yes" />
+
+		<PackageGroup Id="NetFx48Redist">
+		  <ExePackage Id="NetFx48Redist"
+			  InstallCommand="/q /norestart /ChainingPackage &quot;[WixBundleName]&quot; /log &quot;[NetFx48FullLog].html&quot;"
+			  RepairCommand="/q /norestart /repair /ChainingPackage &quot;[WixBundleName]&quot; /log &quot;[NetFx48FullLog].html&quot;"
+			  UninstallCommand="/uninstall /q /norestart /ChainingPackage &quot;[WixBundleName]&quot; /log &quot;[NetFx48FullLog].html&quot;"
+			  PerMachine="yes"
+			  DetectCondition="!(wix.NetFx48OrLaterDetectCondition)"
+			  InstallCondition="!(wix.NetFx48RedistInstallCondition)"
+			  Vital="yes"
+			  Permanent="yes"
+			  Protocol="netfx4"
+			  LogPathVariable="NetFx48FullLog"
+			  Compressed="yes"
+			  SourceFile="..\libs\ndp48-x86-x64-allos-enu.exe">
+			<ExitCode Behavior="forceReboot" Value="1641" />
+			<ExitCode Behavior="forceReboot" Value="3010" />
+			<ExitCode Behavior="error" Value="5100" />
+			<ExitCode Behavior="error" Value="1603" />
+			<ExitCode Behavior="success" Value="0" />
+		  </ExePackage>
+		</PackageGroup>
+	</Fragment>
+	<?if $(sys.BUILDARCH)="x86"?>
+	<Fragment>
+		<Property Id="CRVSINSTALLED" />
+		<util:RegistrySearch Root="HKLM"
+                     Key="Software\Microsoft\Windows\CurrentVersion\Uninstall\{9A25302D-30C0-39D9-BD6F-21E6EC160475}"
+                     Variable="CPP2008Redist"
+                     Value="Installed"
+                     Result="value"/>
+		<PackageGroup Id="redist_vc8">
+			<ExePackage Id="vc8" Cache="no" PerMachine="yes" Vital="yes" Compressed="yes" Permanent="yes"
+				  Name="vcredist_2008_x86.exe"
+				  SourceFile="..\libs\vcredist_2008_x86.exe"
+                  InstallCommand="/Q /norestart"
+				  DetectCondition="CPP2008Redist">
+				<ExitCode Value="1638" Behavior="success"/> <!-- Don't fail if newer version is installed -->
+			</ExePackage>
+		</PackageGroup>
+	</Fragment>
+	<Fragment>
+		<util:RegistrySearch Root="HKLM"
+                     Key="SOFTWARE\Microsoft\VisualStudio\10.0\VC\VCRedist\x86"
+                     Variable="CPP2010Redist"
+                     Value="Installed"
+                     Result="value"/>
+		<PackageGroup Id="redist_vc10">
+			<ExePackage Id="vc10" Cache="no" PerMachine="yes" Vital="yes" Compressed="yes" Permanent="yes"
+                  SourceFile="..\libs\vcredist_x86.exe"
+                  InstallCommand="/quiet /norestart"
+				  DetectCondition="CPP2010Redist">
+				<ExitCode Value="1638" Behavior="success"/> <!-- Don't fail if newer version is installed -->
+			</ExePackage>
+		</PackageGroup>
+	</Fragment>
+	<Fragment>
+		<util:RegistrySearch Root="HKLM"
+                     Key="SOFTWARE\Microsoft\VisualStudio\11.0\VC\Runtimes\x86"
+                     Variable="CPP2011Redist"
+                     Value="Installed"
+                     Result="value"/>
+		<PackageGroup Id="redist_vc11">
+			<ExePackage Id="vc11" Cache="no" PerMachine="yes" Vital="yes" Compressed="yes" Permanent="yes"
+                  SourceFile="..\libs\vcredist_2012_x86.exe"
+                  InstallCommand="/quiet /norestart"
+				  DetectCondition="CPP2011Redist">
+				<ExitCode Value="1638" Behavior="success"/> <!-- Don't fail if newer version is installed -->
+			</ExePackage>
+		</PackageGroup>
+	</Fragment>
+	<Fragment>
+		<util:RegistrySearch Root="HKLM"
+                     Key="SOFTWARE\Microsoft\VisualStudio\12.0\VC\Runtimes\x86"
+                     Variable="CPP2012Redist"
+                     Value="Installed"
+                     Result="value"/>
+		<PackageGroup Id="redist_vc12">
+			<ExePackage Id="vc12" Cache="no" PerMachine="yes" Vital="yes" Compressed="yes" Permanent="yes"
+                  SourceFile="..\libs\vcredist_2013_x86.exe"
+                  InstallCommand="/quiet /norestart"
+				  DetectCondition="CPP2012Redist">
+				<ExitCode Value="1638" Behavior="success"/> <!-- Don't fail if newer version is installed -->
+			</ExePackage>
+		</PackageGroup>
+	</Fragment>
+	<Fragment>
+		<util:RegistrySearch Root="HKLM"
+                     Key="SOFTWARE\Microsoft\VisualStudio\14.0\VC\Runtimes\x86"
+                     Variable="CPP2015Redist"
+                     Value="Installed"
+                     Result="value"/>
+		<PackageGroup Id="redist_vc15">
+			<ExePackage Id="vc15" Cache="no" PerMachine="yes" Vital="yes" Compressed="yes" Permanent="yes"
+				  Name="vcredist_x86.exe"
+				  SourceFile="..\libs\vcredist_2015_x86.exe"
+                  InstallCommand="/quiet /norestart"
+				  DetectCondition="CPP2015Redist">
+				<ExitCode Value="1638" Behavior="success"/> <!-- Don't fail if newer version is installed -->
+			</ExePackage>
+		</PackageGroup>
+	</Fragment>
+	<Fragment>
+		<util:RegistrySearch Root="HKLM"
+                     Key="SOFTWARE\Microsoft\VisualStudio\14.0\VC\Runtimes\x86"
+                     Variable="CPP2017Redist"
+                     Value="Installed"
+                     Result="value"/>
+		<PackageGroup Id="redist_vc17">
+			<ExePackage Id="vc17" Cache="no" PerMachine="yes" Vital="yes" Compressed="yes" Permanent="yes"
+				  Name="vcredist_x86.exe"
+				  SourceFile="..\libs\vcredist_2017_x86.exe"
+                  InstallCommand="/quiet /norestart"
+				  DetectCondition="CPP2017Redist">
+				 <ExitCode Value="1638" Behavior="success"/> <!-- Don't fail if newer version is installed -->
+			</ExePackage>
+		</PackageGroup>
+	</Fragment>
+	<?elseif $(sys.BUILDARCH)="x64"?>
+	<Fragment>
+		<util:RegistrySearch Root="HKLM"
+                     Key="Software\Microsoft\Windows\CurrentVersion\Uninstall\{8220EEFE-38CD-377E-8595-13398D740ACE}"
+                     Variable="CPP2008Redist"
+                     Value="Installed"
+                     Result="value"
+					 Win64="yes"/>
+		<PackageGroup Id="redist_vc8">
+			<ExePackage Id="vc8" Cache="no" PerMachine="yes" Vital="yes" Compressed="yes" Permanent="yes"
+                  SourceFile="..\libs\vcredist_2008_x64.exe"
+                  InstallCommand="/Q /norestart"
+				  DetectCondition="CPP2008Redist">
+				<ExitCode Value="1638" Behavior="success"/> <!-- Don't fail if newer version is installed -->
+			</ExePackage>
+		</PackageGroup>
+	</Fragment>
+	<Fragment>
+		<util:RegistrySearch Root="HKLM"
+                     Key="SOFTWARE\Microsoft\VisualStudio\10.0\VC\VCRedist\x64"
+                     Variable="CPP2010Redist64"
+                     Value="Installed"
+                     Result="value"
+					 Win64="yes"/>
+		<util:RegistrySearch Root="HKLM"
+                     Key="SOFTWARE\Microsoft\VisualStudio\10.0\VC\VCRedist\x64"
+                     Variable="CPP2010Redist32"
+                     Value="Installed"
+                     Result="value"
+					 Win64="no"/>
+		<PackageGroup Id="redist_vc10">
+			<ExePackage Id="vc10" Cache="no" PerMachine="yes" Vital="yes" Compressed="yes" Permanent="yes"
+                  SourceFile="..\libs\vcredist_x64.exe"
+                  InstallCommand="/quiet /norestart"
+				  DetectCondition="(CPP2010Redist32) OR (CPP2010Redist64)">
+				<ExitCode Value="1638" Behavior="success"/> <!-- Don't fail if newer version is installed -->
+			</ExePackage>
+		</PackageGroup>
+	</Fragment>
+	<Fragment>
+		<util:RegistrySearch Root="HKLM"
+                     Key="SOFTWARE\Microsoft\VisualStudio\11.0\VC\Runtimes\x64"
+                     Variable="CPP2011Redist64"
+                     Value="Installed"
+                     Result="value"
+					 Win64="yes"/>
+		<util:RegistrySearch Root="HKLM"
+                     Key="SOFTWARE\Microsoft\VisualStudio\11.0\VC\Runtimes\x64"
+                     Variable="CPP2011Redist32"
+                     Value="Installed"
+                     Result="value"
+					 Win64="no"/>
+		<PackageGroup Id="redist_vc11">
+			<ExePackage Id="vc11" Cache="no" PerMachine="yes" Vital="yes" Compressed="yes" Permanent="yes"
+                  SourceFile="..\libs\vcredist_2012_x64.exe"
+                  InstallCommand="/quiet /norestart"
+				  DetectCondition="(CPP2011Redist32) OR (CPP2011Redist64)">
+				<ExitCode Value="1638" Behavior="success"/> <!-- Don't fail if newer version is installed -->
+			</ExePackage>
+		</PackageGroup>
+	</Fragment>
+	<Fragment>
+		<util:RegistrySearch Root="HKLM"
+                     Key="SOFTWARE\Microsoft\VisualStudio\13.0\VC\Runtimes\x86"
+                     Variable="CPP2012Redist64"
+                     Value="Installed"
+                     Result="value"
+					 Win64="yes"/>
+		<util:RegistrySearch Root="HKLM"
+                     Key="SOFTWARE\Microsoft\VisualStudio\13.0\VC\Runtimes\x86"
+                     Variable="CPP2012Redist32"
+                     Value="Installed"
+                     Result="value"
+					 Win64="no"/>
+		<PackageGroup Id="redist_vc12">
+			<ExePackage Id="vc12" Cache="no" PerMachine="yes" Vital="yes" Compressed="yes" Permanent="yes"
+                  SourceFile="..\libs\vcredist_2013_x64.exe"
+                  InstallCommand="/quiet /norestart"
+				  DetectCondition="(CPP2012Redist32) OR (CPP2012Redist64)">
+				<ExitCode Value="1638" Behavior="success"/> <!-- Don't fail if newer version is installed -->
+			</ExePackage>
+		</PackageGroup>
+	</Fragment>
+	<Fragment>
+		<util:RegistrySearch Root="HKLM"
+                     Key="SOFTWARE\Microsoft\VisualStudio\14.0\VC\Runtimes\x64"
+                     Variable="CPP2015Redist64"
+                     Value="Installed"
+                     Result="value"
+					 Win64="yes"/>
+		<util:RegistrySearch Root="HKLM"
+                     Key="SOFTWARE\Microsoft\VisualStudio\14.0\VC\Runtimes\x64"
+                     Variable="CPP2015Redist32"
+                     Value="Installed"
+                     Result="value"
+					 Win64="no"/>
+		<PackageGroup Id="redist_vc15">
+			<ExePackage Id="vc15" Cache="no" PerMachine="yes" Vital="yes" Compressed="yes" Permanent="yes"
+                  SourceFile="..\libs\vcredist_2015_x64.exe"
+                  InstallCommand="/quiet /norestart"
+				  DetectCondition="(CPP2015Redist32) OR (CPP2015Redist64)">
+				<ExitCode Value="1638" Behavior="success"/> <!-- Don't fail if newer version is installed -->
+			</ExePackage>
+		</PackageGroup>
+	</Fragment>
+	<Fragment>
+		<util:RegistrySearch Root="HKLM"
+                     Key="SOFTWARE\Microsoft\VisualStudio\14.0\VC\Runtimes\x64"
+                     Variable="CPP2017Redist64"
+                     Value="Installed"
+                     Result="value"
+					 Win64="yes"/>
+		<util:RegistrySearch Root="HKLM"
+                     Key="SOFTWARE\Microsoft\VisualStudio\14.0\VC\Runtimes\x64"
+                     Variable="CPP2017Redist32"
+                     Value="Installed"
+                     Result="value"
+					 Win64="no"/>
+		<PackageGroup Id="redist_vc17">
+			<ExePackage Id="vc17" Cache="no" PerMachine="yes" Vital="yes" Compressed="yes" Permanent="yes"
+                  SourceFile="..\libs\vcredist_2017_x64.exe"
+                  InstallCommand="/quiet /norestart"
+				  DetectCondition="(CPP2017Redist32) OR (CPP2017Redist64)">
+				<ExitCode Value="1638" Behavior="success"/> <!-- Don't fail if newer version is installed -->
+			</ExePackage>
+		</PackageGroup>
+	</Fragment>
+	<?else?>
+		<?error Unsupported value of sys.BUILDARCH=$(sys.BUILDARCH)?>
+	<?endif?>
+	<?include ../Common/Redistributables.wxi?>
+</Wix>
