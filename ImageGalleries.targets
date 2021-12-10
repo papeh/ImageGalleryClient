@@ -118,7 +118,7 @@
 	<!-- ########################################################################################################## -->
 	<Target Name="ProductCompile">
 		<!-- REVIEW (Hasso) 2017.09: would it be worth running these as exec instead to be able to specify verbosity? -->
-		<MSBuild Projects="$(SafeProductName).sln" Targets="$(SafeProductName)" Properties="Configuration=$(CFG);Platform=$(Platform);AllowUnsafeBlocks=true" />
+		<MSBuild Projects="$(SafeProductName).sln" Targets="ImageGalleryClient" Properties="Configuration=$(CFG);Platform=$(Platform);AllowUnsafeBlocks=true" />
 		<MSBuild Projects="genericinstaller/CustomActions/CustomActions.sln" Targets="CustomActions" Properties="Configuration=$(CFG);Platform=$(Platform)" />
 	</Target>
 
@@ -228,6 +228,13 @@
 					catch (Exception ex)
 					{
 						Log.LogErrorFromException(ex);
+						Log.LogError(ex.StackTrace);
+						if (ex.InnerException != null)
+						{
+							Log.LogError("Inner Exception:");
+							Log.LogError(ex.InnerException.Message);
+							Log.LogError(ex.InnerException.StackTrace);
+						}
 						return false;
 					}
 				]]>

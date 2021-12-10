@@ -11,7 +11,7 @@ REM Set RegQry=HKLM\Hardware\Description\System\CentralProcessor\0
 REM 
 REM REG.exe Query %RegQry% > checkOS.txt
 REM 
-Find /i "x86" < CheckOS.txt > StringCheck.txt
+REM Find /i "x86" < CheckOS.txt > StringCheck.txt
 REM 
 REM If %ERRORLEVEL% == 0 (
 REM 	set KEY_NAME=HKLM\SOFTWARE\Microsoft\VisualStudio\14.0
